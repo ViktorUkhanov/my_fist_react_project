@@ -46,7 +46,13 @@ const productData = [
 ];
 
 function App() {
-  return <div>Hello Hui</div>;
+  return (
+    <div>
+      <Header />
+      <Catalog />
+      <Footer />
+    </div>
+  );
 }
 
 function Header() {
@@ -57,4 +63,21 @@ function Header() {
   );
 }
 
+function Catalog() {
+  return (
+    <main>
+      <ul>
+        <Product />
+      </ul>
+    </main>
+  );
+}
+
+function Product() {
+  return <li>Product</li>;
+}
+
+function Footer() {
+  return <footer>Footer</footer>;
+}
 export default App;

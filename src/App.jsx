@@ -1,4 +1,5 @@
 import React from "react";
+import "./index.css";
 
 const productData = [
   {
@@ -47,37 +48,98 @@ const productData = [
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
       <Catalog />
       <Footer />
-    </div>
+    </>
   );
 }
 
 function Header() {
+  const hours = new Date().getHours();
+  console.log(hours);
+  const openHours = 9;
+  const closeHours = 21;
+  let isOpen = hours < closeHours && hours > openHours ? true : false;
+  console.log(isOpen);
   return (
-    <header>
+    <header className="header">
       <h1>Electronic store</h1>
+      <nav className="nav">
+        <ul>
+          <li>
+            Home
+            <a href="#home"></a>
+          </li>
+          <li>
+            Catalog
+            <a href="#catalog"></a>
+          </li>
+          <li>
+            About us
+            <a href="#about"></a>
+          </li>
+          <li>
+            Contacts
+            <a href="#contacts"></a>
+          </li>
+        </ul>
+      </nav>
+      <div className="working-hours">
+        {isOpen ? (
+          <p>We are open , welcome</p>
+        ) : (
+          <p>
+            {" "}
+            We are close , open hours is {openHours}: 00 - {closeHours} .00{" "}
+          </p>
+        )}
+      </div>
     </header>
   );
 }
 
 function Catalog() {
   return (
-    <main>
-      <ul>
-        <Product />
+    <main className="catalog">
+      <ul className="products">
+        {productData.map((element, index) => (
+          <Product
+            productName={element.name}
+            key={index}
+            productImg={element.photoName}
+            productDescription={element.description}
+            productPrice={element.price}
+            isSoldOut={element.soldOut}
+          />
+        ))}
+        {/* <Product /> */}
       </ul>
     </main>
   );
 }
 
-function Product() {
-  return <li>Product</li>;
+function Product({
+  productImg,
+  productName,
+  productDescription,
+  productPrice,
+  isSoldOut,
+}) {
+  return (
+    <li className={`product ${isSoldOut ? "sold-out" : ""} `}>
+      <img src={productImg} alt="img" />
+      <div>
+        <h3>{productName}</h3>
+        <p>{productDescription}</p>
+        <span>{isSoldOut ? "SOLD-OUT" : productPrice}</span>
+      </div>
+    </li>
+  );
 }
 
 function Footer() {
-  return <footer>Footer</footer>;
+  return <footer className="footer">Footer</footer>;
 }
 export default App;
